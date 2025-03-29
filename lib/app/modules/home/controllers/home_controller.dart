@@ -61,7 +61,7 @@ class HomeController extends GetxController {
         repositories.value = Error("Enter github username");
       }
     } catch (e) {
-      repositories.value = Error("Connect to internet");
+      repositories.value = Error("Connect to internet and retry");
     }
   }
 

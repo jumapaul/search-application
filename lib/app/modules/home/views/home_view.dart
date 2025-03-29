@@ -77,7 +77,16 @@ class HomeView extends GetView<HomeController> {
                         ? Center(child: Text("Enter github username"))
                         : controller.repositories.value is Error
                         ? Center(
-                          child: Text("${controller.repositories.value.error}"),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("${controller.repositories.value.error}"),
+                              GestureDetector(
+                                onTap: () => controller.getUserRepositories(),
+                                child: Icon(Icons.refresh),
+                              ),
+                            ],
+                          ),
                         )
                         : Center(child: CircularProgressIndicator()),
               ),

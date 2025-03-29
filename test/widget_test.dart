@@ -62,7 +62,7 @@ void main() {
 
     final errorState = homeController.repositories.value as Error;
 
-    expect(errorState.error, "Connect to internet");
+    expect(errorState.error, "Connect to internet and retry");
   });
 
   tearDown(() {
