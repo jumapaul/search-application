@@ -9,6 +9,8 @@ import '../../../data/repo_response.dart';
 import 'package:http/http.dart' as http;
 
 class HomeController extends GetxController {
+  final http.Client client;
+  HomeController({required this.client});
   TextEditingController nameEditTextController = TextEditingController();
   var repositories = Rx<DataState<RepoResponse>>(const Empty());
   var type = 'all'.obs;
@@ -45,7 +47,7 @@ class HomeController extends GetxController {
       repositories.value = Initial();
       var url =
           "${Constants.BASE_URL}${nameEditTextController.text}/repos?per_page=10&page=$page&type=${type.value}&direction=${sortDirection.value}";
-      var response = await http.get(Uri.parse(url));
+      var response = await client.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonList = jsonDecode(response.body);
@@ -59,7 +61,7 @@ class HomeController extends GetxController {
         repositories.value = Error("Enter github username");
       }
     } catch (e) {
-      repositories.value = Error("Network error");
+      repositories.value = Error("Connect to internet");
     }
   }
 
